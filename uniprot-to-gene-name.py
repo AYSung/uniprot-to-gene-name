@@ -13,10 +13,11 @@ def main(args):
     }
     map = pd.read_csv(mappers[args.species], delimiter='\t')
     uniprot_to_genename = dict(zip(map['UniProtKB-AC'], map['ID']))
-    
-    df = pd.read_csv(args.list, delimiter='\n', header=None, names=['UniProtID'])
-    df['GeneName'] = df['UniProtID'].map(uniprot_to_genename)
-    df.to_csv(args.list.with_name(f'{args.list.stem}_result').with_suffix('.csv'), index=False)
+ 
+    for path in args.list:
+        df = pd.read_csv(path, delimiter='\n', header=None, names=['UniProtID'])
+        df['GeneName'] = df['UniProtID'].map(uniprot_to_genename)
+        df.to_csv(path.with_name(f'{path.stem}_result').with_suffix('.csv'), index=False)
 
 
 if __name__ == '__main__':
@@ -34,6 +35,7 @@ if __name__ == '__main__':
         help='species to use for ID mapping, choose from [ human | mouse | rat | yeast ]',)
     parser.add_argument('list',
         metavar='ID_list',
+        nargs='+',
         type=Path,
         help='list of UniProtIDs, separated by newline',)
     args = parser.parse_args()

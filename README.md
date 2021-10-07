@@ -9,9 +9,20 @@ Executing the script involves the following command line statement
 *  `list` is the path to the list of UniProtIDs to be mapped
 
 e.g. to map the list of uniprot mouse IDs called 'list_of_uniprot_IDs.txt' to gene names, use the following command:
-`python uniprot-gene-name.py mouse ./list_of_uniprot_-_IDs.txt`
+
+`python uniprot-to-gene-name.py mouse ./list_of_uniprot_IDs.txt`
 
 Note: file directory paths in Windows use the `\` character, file directory paths in Linux/MacOS use `/`
+
+You can map multiple lists of IDs by either passing in multiple file paths or using wildcard matching
+
+e.g., to map the three lists `uniprot_IDs_1.txt`, `uniprot_IDs_2.txt`, `uniprot_IDs_3.txt` you could use either
+
+`python uniprot-to-gene-name.py mouse ./uniprot_IDs_1.txt ./uniprot_IDs_2.txt ./uniprot_IDs_3.txt`
+
+or
+
+`python uniprot-to-gene-name.py mouse ./uniprot_IDs*.txt`
 
 ## Dependencies
 This script requires `Pandas` and its dependencies to run properly. If you have a recent version of Pandas already installed, either through `pip` or `conda`, this should work fine. If not, navigate to the directory of the script and build an Anaconda environment using the command
