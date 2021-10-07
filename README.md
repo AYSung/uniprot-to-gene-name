@@ -3,14 +3,14 @@
 ## Running the script
 
 Executing the script involves the following command line statement
-`python uniprot-to-gene-name.py species list`
+`python3 uniprot-to-gene-name.py species list`
 
 * `species` is one of `human`, `mouse`, `yeast`
 * `list` is the path to the list of UniProtIDs to be mapped
 
 e.g. to map the list of uniprot mouse IDs called 'list_of_uniprot_IDs.txt' to gene names, use the following command:
 
-`python uniprot-to-gene-name.py mouse ./list_of_uniprot_IDs.txt`
+`python3 uniprot-to-gene-name.py mouse ./list_of_uniprot_IDs.txt`
 
 Note: file directory paths in Windows use the `\` character, file directory paths in Linux/MacOS use `/`
 
@@ -18,11 +18,11 @@ You can map multiple lists of IDs by either passing in multiple file paths or us
 
 e.g., to map the three lists `uniprot_IDs_1.txt`, `uniprot_IDs_2.txt`, `uniprot_IDs_3.txt` you could use either
 
-`python uniprot-to-gene-name.py mouse ./uniprot_IDs_1.txt ./uniprot_IDs_2.txt ./uniprot_IDs_3.txt`
+`python3 uniprot-to-gene-name.py mouse ./uniprot_IDs_1.txt ./uniprot_IDs_2.txt ./uniprot_IDs_3.txt`
 
 or
 
-`python uniprot-to-gene-name.py mouse ./uniprot_IDs*.txt`
+`python3 uniprot-to-gene-name.py mouse ./uniprot_IDs*.txt`
 
 Results of the mapping are saved in a new file with the suffix `_result.csv`
 
