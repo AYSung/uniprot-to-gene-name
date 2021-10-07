@@ -37,14 +37,10 @@ This will create an Anaconda environment named `uniprot-to-gene-name`. Activate 
 
 The script should now be able to run in the terminal/command line. (Remember to activate the environment any time you open up a new terminal window)
 
-## To update mapping tables (Linux or MacOS only, need to install WSL on Windows to use)
-* Open bash shell
-* Navigate to `./gene-name-tables/` directory
-* Give executable permission to `update-gene-name-tables.sh` with the command `chmod +x update-gene-name-tables.sh` (Should only need to do this once)
-* Run the bash script with the command `./update-gene-name-tables.sh`
-
-## To add new mapping tables (Linux or MacOS only, need to install WSL on Windows to use)
+## To add new mapping tables (Linux/MacOS only, or WSL on Windows to use)
 * Go to https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/ to find the prefix for a `_idmapping.dat.gz` file for the species you want.
+* Open bash shell / terminal
 * Navigate to `./gene-name-tables/` directory
-* Give executable permission to `update-gene-name-tables.sh` with the command `chmod +x update-gene-name-tables.sh` (Should only need to do this once)
-* Run the bash script with the command `./update-gene-name-tables.sh <prefix>`, where prefix is something like HUMAN_9606 or MOUSE_10090
+* Give executable permission to `add-gene-name-tables.sh` with the command `chmod +x add-gene-name-tables.sh` (Should only need to do this once)
+* Run the bash script with the command `./add-gene-name-tables.sh <prefix>`, where prefix is something like HUMAN_9606 or MOUSE_10090. You can put as many prefixes in a row as you want `./add-gene-name-tables.sh ECOLI_83333 RAT_10116` will add tables for both *E. coli* and Rat.
+* Note: using this script to add a species for which there is already a `_gene_names.txt` file will overwrite it (probably won't do anything bad, can be used to update a gene name table if UniProt ever releases a new `_idmapping.dat.gz`).
