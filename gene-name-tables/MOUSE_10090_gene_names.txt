@@ -1,4 +1,3 @@
-UniProtKB-AC	ID
 Q9CQV8	Ywhab
 P62259	Ywhae
 P68510	Ywhah

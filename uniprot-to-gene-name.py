@@ -11,8 +11,8 @@ def get_map(species):
         'yeast': Path('gene-name-tables/YEAST_559292_gene_names.txt'),
         # Add key and path to _gene_names.txt for other species here if desired
     }
-    map = pd.read_csv(MAPPERS[species], delimiter='\t')
-    return dict(zip(map['UniProtKB-AC'], map['ID']))
+    map = pd.read_csv(MAPPERS[species], delimiter='\t', names=['UniProtID','GeneName'])
+    return dict(zip(map['UniProtID'], map['GeneName']))
 
 
 # Creates new column with gene name corresponding to UniProtID and saves in a *_result.csv file
