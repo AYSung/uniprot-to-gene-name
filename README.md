@@ -37,9 +37,14 @@ This will create an Anaconda environment named `uniprot-to-gene-name`. Activate 
 
 The script should now be able to run in the terminal/command line. (Remember to activate the environment any time you open up a new terminal window)
 
-## To generate mapping tables for other species
-* Download `.dat.gz` from https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/ on Oct. 6, 2021
-* Unzip file and place in /uniprot-id-tables directory
-* Open `uniprot-to-gene-name.ipynb` Jupyter notebook. 
-* Uncomment call to function `create_mapping()` and replace argument with prefix for .dat file (e.g., HUMAN_9606, MOUSE_10090)
-* Run cell - there should now be a new file in the /gene-name-tables directory with the name `<prefix>_gene_names.txt`
+## To update mapping tables (Linux or MacOS only, need to install WSL on Windows to use)
+* Open bash shell
+* Navigate to `./gene-name-tables/` directory
+* Give executable permission to `update-gene-name-tables.sh` with the command `chmod +x update-gene-name-tables.sh` (Should only need to do this once)
+* Run the bash script with the command `./update-gene-name-tables.sh`
+
+## To add new mapping tables (Linux or MacOS only, need to install WSL on Windows to use)
+* Go to https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/ to find the prefix for a `_idmapping.dat.gz` file for the species you want.
+* Navigate to `./gene-name-tables/` directory
+* Give executable permission to `update-gene-name-tables.sh` with the command `chmod +x update-gene-name-tables.sh` (Should only need to do this once)
+* Run the bash script with the command `./update-gene-name-tables.sh <prefix>`, where prefix is something like HUMAN_9606 or MOUSE_10090
