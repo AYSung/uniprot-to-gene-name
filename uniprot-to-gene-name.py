@@ -2,22 +2,30 @@ import argparse
 import pandas as pd
 from pathlib import Path
 
-
-def main(args):
-    mappers = {
+# return dictionary with UniProtID: Gene Name key-value-pairs
+def get_map(species):
+    MAPPERS = {
         'human': Path('gene-name-tables/HUMAN_9606_gene_names.txt'),
         'mouse': Path('gene-name-tables/MOUSE_10090_gene_names.txt'),
         'rat': Path('gene-name-tables/RAT_10116_gene_names.txt'),
         'yeast': Path('gene-name-tables/YEAST_559292_gene_names.txt'),
-        # Add path to mappers for other species here if desired
+        # Add key and path to _gene_names.txt for other species here if desired
     }
-    map = pd.read_csv(mappers[args.species], delimiter='\t')
-    uniprot_to_genename = dict(zip(map['UniProtKB-AC'], map['ID']))
- 
-    for path in args.list:
+    map = pd.read_csv(MAPPERS[species], delimiter='\t')
+    return dict(zip(map['UniProtKB-AC'], map['ID']))
+
+
+# Creates new column with gene name corresponding to UniProtID and saves in a *_result.csv file
+def map_ids(species, list_paths):
+    mapper = get_map(species)
+    for path in list_paths:
         df = pd.read_csv(path, delimiter='\n', header=None, names=['UniProtID'])
-        df['GeneName'] = df['UniProtID'].map(uniprot_to_genename)
+        df['GeneName'] = df['UniProtID'].map(mapper)
         df.to_csv(path.with_name(f'{path.stem}_result').with_suffix('.csv'), index=False)
+
+
+def main(args):
+    map_ids(args.species, args.list)
 
 
 if __name__ == '__main__':

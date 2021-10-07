@@ -24,6 +24,8 @@ or
 
 `python uniprot-to-gene-name.py mouse ./uniprot_IDs*.txt`
 
+results of the mapping are saved in a new file with the suffix `_result.csv`
+
 ## Dependencies
 This script requires `Pandas` and its dependencies to run properly. If you have a recent version of Pandas already installed, either through `pip` or `conda`, this should work fine. If not, navigate to the directory of the script and build an Anaconda environment using the command
 
