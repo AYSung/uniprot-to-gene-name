@@ -5,7 +5,7 @@
 Executing the script involves the following command line statement
 `python uniprot-to-gene-name.py species list`
 
-* `species` is one of `human`, `mouse`, `rat`, `yeast`
+* `species` is one of `human`, `mouse`, `yeast`
 * `list` is the path to the list of UniProtIDs to be mapped
 
 e.g. to map the list of uniprot mouse IDs called 'list_of_uniprot_IDs.txt' to gene names, use the following command:
@@ -24,7 +24,7 @@ or
 
 `python uniprot-to-gene-name.py mouse ./uniprot_IDs*.txt`
 
-results of the mapping are saved in a new file with the suffix `_result.csv`
+Results of the mapping are saved in a new file with the suffix `_result.csv`
 
 ## Dependencies
 This script requires `Pandas` and its dependencies to run properly. If you have a recent version of Pandas already installed, either through `pip` or `conda`, this should work fine. If not, navigate to the directory of the script and build an Anaconda environment using the command
@@ -44,3 +44,6 @@ The script should now be able to run in the terminal/command line. (Remember to 
 * Give executable permission to `add-gene-name-tables.sh` with the command `chmod +x add-gene-name-tables.sh` (Should only need to do this once)
 * Run the bash script with the command `./add-gene-name-tables.sh <prefix>`, where prefix is something like HUMAN_9606 or MOUSE_10090. You can put as many prefixes in a row as you want `./add-gene-name-tables.sh ECOLI_83333 RAT_10116` will add tables for both *E. coli* and Rat.
 * Note: using this script to add a species for which there is already a `_gene_names.txt` file will overwrite it (probably won't do anything bad, can be used to update a gene name table if UniProt ever releases a new `_idmapping.dat.gz`).
+* If you add a gene name table for a new species, you will need to modify the python script in order to be able to use it.
+    * Add `'name_of_species': Path('path to mapping table')` to the `MAPPERS` variable in the `get_map` function
+    * Add `'name_of_species'` to the `species` variable in the `if __name__ == '__main__'` block
