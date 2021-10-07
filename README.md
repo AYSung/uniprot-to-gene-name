@@ -5,18 +5,24 @@
 Executing the script involves the following command line statement
 `python uniprot-to-gene-name.py species list`
 
-where `species` is one of `human`, `mouse`, `rat`, `yeast`
+* `species` is one of `human`, `mouse`, `rat`, `yeast`
+*  `list` is the path to the list of UniProtIDs to be mapped
 
-and `list` is the path to the list of UniProtIDs to be mapped
-
-
-e.g.
-`python uniprot-gene-name.py mouse ./sample_input_list.txt`
+e.g. to map the list of uniprot mouse IDs called 'list_of_uniprot_IDs.txt' to gene names, use the following command:
+`python uniprot-gene-name.py mouse ./list_of_uniprot_-_IDs.txt`
 
 Note: file directory paths in Windows use the `\` character, file directory paths in Linux/MacOS use `/`
 
 ## Dependencies
-This script requires `Pandas` to run properly.
+This script requires `Pandas` and its dependencies to run properly. If you have a recent version of Pandas already installed, either through `pip` or `conda`, this should work fine. If not, navigate to the directory of the script and build an Anaconda environment using the command
+
+`conda env create`
+
+This will create an Anaconda environment named `uniprot-to-gene-name`. Activate this environment if it is not activated with the command
+
+`conda activate uniprot-to-gene-name`
+
+The script should now be able to run
 
 ## To generate mapping tables for other species
 * Download `.dat.gz` from https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/ on Oct. 6, 2021
