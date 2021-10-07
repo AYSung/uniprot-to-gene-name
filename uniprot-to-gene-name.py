@@ -1,0 +1,40 @@
+import argparse
+import pandas as pd
+from pathlib import Path
+
+
+def main(args):
+    mappers = {
+        'human': Path('gene-name-tables/HUMAN_9606_gene_names.txt'),
+        'mouse': Path('gene-name-tables/MOUSE_10090_gene_names.txt'),
+        'rat': Path('gene-name-tables/RAT_10116_gene_names.txt'),
+        'yeast': Path('gene-name-tables/YEAST_559292_gene_names.txt'),
+        # Add path to mappers for other species here if desired
+    }
+    map = pd.read_csv(mappers[args.species], delimiter='\t')
+    uniprot_to_genename = dict(zip(map['UniProtKB-AC'], map['ID']))
+    
+    df = pd.read_csv(args.list, delimiter='\n', header=None, names=['UniProtID'])
+    df['GeneName'] = df['UniProtID'].map(uniprot_to_genename)
+    df.to_csv(args.list.with_name(f'{args.list.stem}_result').with_suffix('.csv'), index=False)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        prog='uniprot-to-genename', 
+        description='Map list of UniProtIDs to Gene Names')
+
+    # add other species here after creating a mapper in the /gene-name-tables director
+    species = ['human','mouse','rat','yeast']
+
+    parser.add_argument('species',
+        metavar='species',
+        choices=species,
+        type=str,
+        help='species to use for ID mapping, choose from [ human | mouse | rat | yeast ]',)
+    parser.add_argument('list',
+        metavar='ID_list',
+        type=Path,
+        help='list of UniProtIDs, separated by newline',)
+    args = parser.parse_args()
+    main(args)
