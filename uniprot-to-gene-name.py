@@ -2,6 +2,7 @@ import argparse
 import pandas as pd
 from pathlib import Path
 
+
 # return dictionary with UniProtID: Gene Name key-value-pairs
 def get_map(species):
     MAPPERS = {
