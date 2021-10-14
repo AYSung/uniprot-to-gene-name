@@ -3,6 +3,14 @@ import pandas as pd
 from pathlib import Path
 
 
+# TODO:
+def import_list():
+    pass
+
+def import_maxquant():
+    pass
+
+
 def main(args):
     mappers = {
         'human': Path('gene-name-tables/HUMAN_9606_gene_names.txt'),
@@ -11,6 +19,9 @@ def main(args):
         'yeast': Path('gene-name-tables/YEAST_559292_gene_names.txt'),
         # Add path to mappers for other species here if desired
     }
+
+    # data_importer = IMPORTERS[args.format]
+
     map = pd.read_csv(mappers[args.species], delimiter='\t')
     uniprot_to_genename = dict(zip(map['UniProtKB-AC'], map['ID']))
  
@@ -21,6 +32,11 @@ def main(args):
 
 
 if __name__ == '__main__':
+    IMPORTERS = {
+        'list': import_list,
+        'maxquant': import_maxquant,
+    }
+    
     parser = argparse.ArgumentParser(
         prog='uniprot-to-genename', 
         description='Map list of UniProtIDs to Gene Names')
@@ -28,6 +44,15 @@ if __name__ == '__main__':
     # add other species here after creating a mapper in the /gene-name-tables director
     species = ['human','mouse','rat','yeast']
 
+## maxquant support
+    parser.add_argument('-f', '--format',
+        metavar='input_format',
+        default='raw',
+        type=str,
+        choices=IMPORTERS.keys(),
+        dest='format',
+        help='data format'
+        )
     parser.add_argument('species',
         metavar='species',
         choices=species,
